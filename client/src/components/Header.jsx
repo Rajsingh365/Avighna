@@ -17,10 +17,10 @@ const Navbar = () => {
     { id: 1, text: 'Home', to: "/" },
     { id: 2, text: 'Contact', to: "/contact-us" },
     { id: 3, text: 'About', to: "/about-us" },
-    {id: 4, text: 'Sign In', to: "/sign-in"},
-    {id: 5, text: 'Top Contributors', to: "/top-contributors"}
+    { id: 4, text: 'Sign In', to: "/sign-in" },
+    { id: 5, text: 'Top Contributors', to: "/top-contributors" }
   ];
-  const {currentUser}=useSelector(state=>state.user)
+  const { currentUser } = useSelector(state => state.user)
   return (
     <div className='bg-black flex justify-between items-center h-24 w-screen mx-auto px-4 text-white'>
       {/* Logo */}
@@ -34,20 +34,19 @@ const Navbar = () => {
       <ul className='hidden md:flex'>
         {navItems.map(item => (
           <Link key={item.id} to={item.to}>
-            <li 
-              className={`py-2 px-4 hover:text-[#FFBA08] rounded-xl mx-2 cursor-pointer duration-300 ${
-                item.id !== 4 || (item.id === 4 && !currentUser) 
-                  ? (item.id === 4 
-                    ? 'bg-yellow-400 rounded-lg hover:text-black' 
+            <li
+              className={`py-2 px-4 hover:text-[#FFBA08] rounded-xl mx-2 cursor-pointer duration-300 ${item.id !== 4 || (item.id === 4 && !currentUser)
+                  ? (item.id === 4
+                    ? 'bg-yellow-400 rounded-lg hover:text-black'
                     : '')
                   : 'hidden'
-              }`}
+                }`}
             >
               {item.text}
             </li>
           </Link>
         ))}
-       {currentUser && <Link to={"/profile"}><img src={currentUser.profilePicture} className='w-10 h-10 rounded-full' alt="" /></Link>}
+        {currentUser && <Link to={"/profile"}><img src={currentUser.profilePicture} className='w-10 h-10 rounded-full' alt="" /></Link>}
       </ul>
 
       {/* Mobile Navigation Icon */}
@@ -64,22 +63,29 @@ const Navbar = () => {
         }
       >
         {/* Mobile Logo */}
-        <Link to={"/"}>
+        {currentUser ? <Link to={"/profile"}><div className='flex gap-4 items-center'><img src={currentUser.profilePicture} className='w-10 h-10 rounded-full ml-6 mt-2 hover:shadow-2xl' alt="" /><p className='text-xl hover:text-slate-500'>{currentUser.username}</p></div></Link> : <Link to={"/"}>
           <h1 className='w-full text-3xl font-bold text-[#E85D04] m-4'>Avighna</h1>
-        </Link>
+        </Link>}
+
 
         {/* Mobile Navigation Items */}
         {navItems.map(item => (
           <Link key={item.id} to={item.to}>
             <li
-              className={'p-4 rounded-xl hover:bg-[#FFBA08] duration-300 hover:text-black cursor-pointer border-gray-600 '}
+              className={`p-4 rounded-xl hover:bg-[#FFBA08] duration-300 hover:text-black cursor-pointer border-gray-600  ${item.id !== 4 || (item.id === 4 && !currentUser)
+                  ? (item.id === 4
+                    ? 'bg-yellow-400 rounded-lg hover:text-black'
+                    : '')
+                  : 'hidden'
+                }`}
             >
               {item.text}
             </li>
           </Link>
         ))}
+
       </ul>
-      
+
     </div>
   );
 };
@@ -88,5 +94,5 @@ export default Navbar;
 
 
 <button type="button" class="text-gray-900 bg-[#F7BE38] hover:bg-[#F7BE38]/90 focus:ring-4 focus:outline-none focus:ring-[#F7BE38]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#F7BE38]/50 me-2 mb-2">
-        Sign in
-      </button>
+  Sign in
+</button>
