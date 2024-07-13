@@ -1,0 +1,2 @@
+https://coolors.co/palette/03071e-370617-6a040f-9d0208-d00000-dc2f02-e85d04-f48c06-faa307-ffba08 -> color pallete
+bg-> <div class="h-screen bg-[radial-gradient(circle_at_50%_75%,#FFBA08,#F48C06)]"></div>
