@@ -32,7 +32,7 @@ function SignUp() {
         setErrorMessage(data.message)
         return 
       }
-      dispatch(signInSuccess(data))
+      dispatch(signInSuccess({data, token: null}))
       navigate('/sign-in')
     }
     catch(err){

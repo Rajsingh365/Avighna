@@ -31,6 +31,7 @@ function SignIn() {
         setErrorMessage(data.message)
         return 
       }
+      console.log(data)
       dispatch(signInSuccess(data))
       navigate('/donation')
     }

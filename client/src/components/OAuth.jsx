@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 function OAuth({setErrorMessage}) {
   const dispatch=useDispatch()
   const navigate=useNavigate()
-
+  const {token}=useSelector(state=>state.user)
   const onGoogleClick=async ()=>{
     try{
       const provider=new GoogleAuthProvider()
@@ -17,7 +17,8 @@ function OAuth({setErrorMessage}) {
       const res=await fetch(`${import.meta.env.VITE_API_URL}/avighna/api/auth/google`,{
         method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Bearer': `${token}`
         },
         body: JSON.stringify({
           name: result.user.displayName,

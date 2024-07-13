@@ -8,7 +8,7 @@ import Progress1 from '../components/Progress1.jsx'
 function Profile() {
   const dispatch = useDispatch()
   const fileRef = useRef(null)
-  const { currentUser, loading, error } = useSelector(state => state.user)
+  const { currentUser, loading, error, token } = useSelector(state => state.user)
   const [image, setImage] = useState(undefined)
   const [imagePercent, setImagePercent] = useState(0)
   const [imageError, setImageError] = useState(null)
@@ -57,6 +57,7 @@ function Profile() {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
+          'Bearer': `${token}`
         },
         body: JSON.stringify(formData),
         credentials: 'include'
@@ -79,6 +80,10 @@ function Profile() {
       dispatch(deleteUserStart())
       const res = await fetch(`${import.meta.env.VITE_API_URL}/avighna/api/user/delete/${currentUser._id}`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Bearer': `${token}`
+        },
         credentials: 'include'  
       })
       const data = await res.json()

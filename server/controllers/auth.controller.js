@@ -28,12 +28,10 @@ export const signin = async (req, res, next) => {
     if (!validPassword) return next(errorHandler(401, "Wrong credentials"))
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET)
     const { password: hashedPassword, ...user } = validUser._doc    //remove password before sending the response
-    const expiryDate = new Date(Date.now() + (3600 * 1000 * 24))
-    // console.log("access_token", token)
-    res.cookie('access_token', token, {
-      // httpOnly: true,
-      // expires: expiryDate,
-    }).status(200).json(user)
+    res.status(200).json({
+      user,
+      token
+    })
   }
   catch (err) {
     next(err)
@@ -46,9 +44,10 @@ export const google = async (req, res, next) => {
     if (user) {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
       const { password: hashedPassword, ...userData } = user._doc;
-      const expiryDate = new Date(Date.now() + 24 * 3600 * 1000);
-      // console.log(token)
-      res.cookie('access_token', token).status(200).json(userData);
+      res.json({
+        user: userData,
+        token
+      });
     } else {
       // Handle case where user doesn't exist in the database
       const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8); // Generate 16-digit password
@@ -64,12 +63,8 @@ export const google = async (req, res, next) => {
       await newUser.save();
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
       const { password: hashedPassword2, ...userData } = newUser._doc;
-      const expiryDate = new Date(Date.now() + 24 * 3600 * 1000);
 
-      res.cookie('access_token', token, { 
-        // httpOnly: true,
-        // expires: expiryDate
-       }).status(200).json(userData);
+      res.status(200).json({userData, token});
     }
   } catch (err) {
     next(err);
@@ -78,7 +73,5 @@ export const google = async (req, res, next) => {
 
 
 export const signout = async (req, res, next) => {
-  console.log(req.cookies)
-  console.log("reached")
-  res.cookie('access_token', '').json({ msg: 'SignOut Success' })
+  res.json({ msg: 'SignOut Success' })
 }
