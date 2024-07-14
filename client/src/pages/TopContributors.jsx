@@ -47,13 +47,13 @@ function TopContributors() {
     <div className='h-screen bg-[radial-gradient(circle_at_50%_75%,#FFBA08,#F48C06)] flex flex-col justify-center items-center'>
       <div className="mx-3 w-full max-w-4xl">
         <p className='text-3xl text-center text-white mb-6'>Top Contributors</p>
-        <GlassMorphism className="w-full py-8 px-3 md:py-10 my-1 mx-auto">
+        <GlassMorphism className="w-[85%] sm:w-full py-8 px-3 md:py-10 my-1 mx-auto">
           {isLoading ? (
             <p className="text-center text-white">Loading...</p>
           ) : error ? (
             <p className="text-center text-red-500">Error: {error}</p>
           ) : data_list.length > 0 ? (
-            <Table head_list={head_list} data_list={data_list} className="flex flex-col justify-center items-center" />
+            <Table head_list={head_list} data_list={data_list} className="w-[] sm:w-[95%] flex flex-col justify-center items-center" />
           ) : (
             <p className="text-center text-white">No data available</p>
           )}
